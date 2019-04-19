@@ -7,6 +7,7 @@
     "lint": "eslint ./src",
     "watch": "npm-run-all --parallel dev:**",
     "build:server": "webpack --config ./src/webpack/server.config.js --mode development",
+    "build:ui": "webpack --config ./src/webpack/dev.config.js --mode development",
     "build": "webpack --config ./src/webpack/prod.config.js --mode production",
     "dev:ui": "webpack-dev-server --config ./src/webpack/dev.config.js --mode development",
     "docker:up": "docker-compose -f ./docker/dev/docker-compose.yml up",
