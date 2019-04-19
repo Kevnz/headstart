@@ -5,6 +5,7 @@ const Hapi = require('hapi')
 const Manifest = require('./manifest')
 const Types = require('./graphql/types')
 const Resolvers = require('./graphql/resolvers')
+const loadRoutes = require('./routes/home')
 let app
 
 const start = async () => {
@@ -23,6 +24,7 @@ const start = async () => {
       },
     })
     await app.register(Manifest)
+    await loadRoutes(app)
     await server.applyMiddleware({
       app,
     })
