@@ -1,8 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import 'mini.css'
+import { hydrate } from 'react-dom'
 import App from './core/app'
 
-ReactDOM.render(<App />, document.getElementById('root'))
-
-module.hot.accept()
+setTimeout(() => {
+  hydrate(<App />, document.getElementById('root'))
+}, 3000)
