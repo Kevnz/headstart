@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = [
   {
     plugin: require('blipp'),
@@ -23,12 +25,6 @@ module.exports = [
           'stdout',
         ],
       },
-    },
-  },
-  {
-    plugin: require('hapi-router'),
-    options: {
-      routes: ['src/server/routes/**/*.js'],
     },
   },
 ]
