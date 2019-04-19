@@ -1,24 +1,44 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
-module.exports = {
+console.log('Exts', nodeExternals())
+const getConfig = (entry, output) => ({
   watch: true,
   target: 'node',
-  entry: './src/server/index.js',
+  entry,
   externals: [nodeExternals()],
   module: {
     rules: [
       {
         test: /\.(mjs|js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: [
+              'babel-plugin-styled-components',
+              '@babel/plugin-proposal-class-properties',
+              '@babel/plugin-syntax-dynamic-import',
+            ],
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  modules: 'commonjs',
+                  targets: {
+                    node: 'current',
+                    esmodules: false,
+                  },
+                },
+              ],
+              '@babel/preset-react',
+            ],
+          },
+        },
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.s[ca]ss$/,
-        loader: 'style-loader!css-loader!resolve-url-loader!sass-loader',
+        use: ['isomorphic-style-loader', { loader: 'css-loader' }],
       },
     ],
   },
@@ -27,9 +47,17 @@ module.exports = {
     modules: ['node_modules', 'src'],
     alias: {},
   },
-  output: {
-    path: path.join(process.cwd(), '/build/server'),
-    publicPath: '/',
-    filename: 'index.js',
-  },
+  output,
+})
+
+const getConfigs = () => {
+  return [
+    getConfig('./src/server/index.js', {
+      path: path.join(process.cwd(), '/build/server'),
+      publicPath: '/',
+      filename: 'index.js',
+    }),
+  ]
 }
+
+module.exports = getConfigs()
