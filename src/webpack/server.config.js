@@ -1,8 +1,9 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 console.log('Exts', nodeExternals())
+const isProd = !!(process.env.NODE_ENV && process.env.NODE_ENV === 'production')
 const getConfig = (entry, output) => ({
-  watch: true,
+  watch: false,
   target: 'node',
   entry,
   externals: [nodeExternals()],
