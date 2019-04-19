@@ -1,27 +1,27 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment, Suspense } from 'react'
 import { ApolloProvider } from 'react-apollo'
+import { lazy } from '@loadable/component'
 import { Router } from '@reach/router'
 import client from './client'
+import '../styles/base.css'
 
-const About = React.lazy(() => import('../features/about'))
-const Home = React.lazy(() => import('../features/home'))
-const Contact = React.lazy(() => import('../features/contact'))
+const About = lazy(() => import('../features/about'))
+const Home = lazy(() => import('../features/home'))
+const Contact = lazy(() => import('../features/contact'))
 
-export default class App extends Component {
-  render() {
-    return (
-      <ApolloProvider client={client}>
-        <Fragment>
-          <h1>App</h1>
-          <React.Suspense fallback={<div>Loading</div>}>
-            <Router>
-              <Home path="/" />
-              <About path="/about" />
-              <Contact path="/contact" />
-            </Router>
-          </React.Suspense>
-        </Fragment>
-      </ApolloProvider>
-    )
-  }
+export default function App() {
+  return (
+    <ApolloProvider client={client}>
+      <Fragment>
+        <h1>Headstart</h1>
+        <Suspense fallback={<div>Loading</div>}>
+          <Router>
+            <Home path="/" />
+            <About path="/about" />
+            <Contact path="/contact" />
+          </Router>
+        </Suspense>
+      </Fragment>
+    </ApolloProvider>
+  )
 }
