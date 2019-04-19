@@ -10,8 +10,8 @@ const prodConfig = {
     }),
   ],
   output: {
-    path: path.join(process.cwd(), '/dist'),
-    publicPath: '/',
+    path: path.join(process.cwd(), './build/ui/'),
+    publicPath: '/files/',
     filename: 'bundle.js',
   },
 }
